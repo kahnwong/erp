@@ -16,6 +16,8 @@ var (
 	Green  = color.New(color.FgHiGreen).SprintFunc()
 	Red    = color.New(color.FgRed).SprintFunc()
 	Yellow = color.New(color.FgYellow).SprintFunc()
+	Blue   = color.New(color.FgBlue).SprintFunc()
+	Cyan   = color.New(color.FgCyan).SprintFunc()
 )
 
 type Item struct {
@@ -37,8 +39,8 @@ func readData() []Item {
 		line = strings.TrimRight(line, "\r\n")
 		data := strings.Split(line, " - ")
 
-		category := data[0]
-		item := data[1]
+		category := Blue(data[0])
+		item := Cyan(data[1])
 		date := data[2]
 
 		// date: assign color
