@@ -3,6 +3,7 @@ module github.com/kahnwong/erp
 go 1.24.3
 
 require (
+	github.com/fatih/color v1.18.0
 	github.com/jedib0t/go-pretty/v6 v6.6.7
 	github.com/kahnwong/cli-base v0.0.0-20250506033212-029722a13b47
 	github.com/rs/zerolog v1.34.0
@@ -60,7 +61,6 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.6 // indirect
 	github.com/envoyproxy/go-control-plane/envoy v1.32.4 // indirect
 	github.com/envoyproxy/protoc-gen-validate v1.2.1 // indirect
-	github.com/fatih/color v1.18.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/getsops/gopgagent v0.0.0-20241224165529-7044f28e491e // indirect
 	github.com/getsops/sops/v3 v3.10.2 // indirect

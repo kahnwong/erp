@@ -5,8 +5,17 @@ import (
 	"os"
 	"sort"
 	"strings"
+	"time"
+
+	"github.com/fatih/color"
 
 	"github.com/jedib0t/go-pretty/v6/table"
+)
+
+var (
+	Green  = color.New(color.FgHiGreen).SprintFunc()
+	Red    = color.New(color.FgRed).SprintFunc()
+	Yellow = color.New(color.FgYellow).SprintFunc()
 )
 
 type Item struct {
@@ -31,6 +40,19 @@ func readData() []Item {
 		category := data[0]
 		item := data[1]
 		date := data[2]
+
+		// date: assign color
+		today := time.Now()
+		dateObject, _ := time.Parse("2006-01-02", date)
+		timeDiff := dateObject.Sub(today)
+
+		if timeDiff.Hours() < 14*24 { // 2 weeks
+			date = Red(date)
+		} else if timeDiff.Hours() < 30*24 { // 1 month
+			date = Yellow(date)
+		} else {
+			date = Green(date)
+		}
 
 		// append
 		erpData = append(erpData, Item{category, item, date})
