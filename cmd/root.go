@@ -3,15 +3,15 @@ package cmd
 import (
 	"os"
 
+	"github.com/kahnwong/erp/core"
+
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
 	Use:   "erp",
 	Short: "For managing perishables and consumables",
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Run:   func(cmd *cobra.Command, args []string) { core.Show() },
 }
 
 func Execute() {
