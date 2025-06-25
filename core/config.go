@@ -10,3 +10,11 @@ type Config struct {
 }
 
 var AppConfig = cliBase.ReadYaml[Config]("~/.config/erp/config.yaml") // init
+
+// models
+type Item struct {
+	Category string
+	Item     string
+	Date     string
+	Quantity int
+}

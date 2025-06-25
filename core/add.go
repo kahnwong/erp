@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"os"
 	"slices"
+	"strconv"
 	"time"
 
 	"github.com/rs/zerolog/log"
 )
 
-func parseUserInput(args []string) (string, string, string) {
+func parseUserInput(args []string) Item {
 	// validate
-	if len(args) != 3 {
+	if len(args) < 3 {
 		log.Fatal().Msgf("Please provide category, item and date")
 	}
 
@@ -20,6 +21,15 @@ func parseUserInput(args []string) (string, string, string) {
 	item := args[1]
 	date := args[2] // expiration date
 
+	quantity := 1
+	var err error
+	if len(args) == 4 {
+		quantity, err = strconv.Atoi(args[3])
+		if err != nil {
+			log.Fatal().Msgf("Quantity must be an integer, currently got %s", args[3])
+		}
+	}
+
 	// category: validate
 	isValidCategory := slices.Contains(AppConfig.Categories, category)
 	if !isValidCategory {
@@ -27,17 +37,22 @@ func parseUserInput(args []string) (string, string, string) {
 	}
 
 	// date: validate
-	_, err := time.Parse("2006-01-02", date)
+	_, err = time.Parse("2006-01-02", date)
 	if err != nil {
 		log.Fatal().Msgf("Invalid date: %s", date)
 	}
 
-	return category, item, date
+	return Item{
+		Category: category,
+		Item:     item,
+		Date:     date,
+		Quantity: quantity,
+	}
 }
 
-func writeTask(category string, item string, date string) string {
+func writeTask(item Item) string {
 	// create string to write
-	text := fmt.Sprintf("%s - %s - %s\n", category, item, date)
+	text := fmt.Sprintf("%s - %s - %s - %v\n", item.Category, item.Item, item.Date, item.Quantity)
 
 	// open file
 	f, err := os.OpenFile(AppConfig.Path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
@@ -61,8 +76,8 @@ func writeTask(category string, item string, date string) string {
 }
 
 func Add(args []string) {
-	category, item, date := parseUserInput(args)
+	item := parseUserInput(args)
 
-	text := writeTask(category, item, date)
+	text := writeTask(item)
 	fmt.Printf("Added: %s\n", text)
 }
