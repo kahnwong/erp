@@ -5,6 +5,7 @@ import (
 )
 
 type Config struct {
+	Path       string   `json:"path"`
 	Categories []string `json:"categories"`
 }
 
