@@ -12,6 +12,8 @@ github.com/jedib0t/go-pretty/v6 v6.7.8 h1:BVYrDy5DPBA3Qn9ICT+PokP9cvCv1KaHv2i+Hc
 github.com/jedib0t/go-pretty/v6 v6.7.8/go.mod h1:YwC5CE4fJ1HFUDeivSV1r//AmANFHyqczZk+U6BDALU=
 github.com/kahnwong/cli-base v0.0.0-20250814120046-dde1e03ae9dd h1:uoMoWqIxD3BYoqduev1mZFCxSKNsRQhv870St5/vA08=
 github.com/kahnwong/cli-base v0.0.0-20250814120046-dde1e03ae9dd/go.mod h1:rDVsfweQ4kaxpAu+IZtZycFBUAfJX/72cEXpEoRyrVM=
+github.com/kahnwong/cli-base v0.0.0-20260101083643-0c950e574c26 h1:UgeFyOn6aqgOQqPovbiO0n+yll3atq0lk9eqmM5j/mA=
+github.com/kahnwong/cli-base v0.0.0-20260101083643-0c950e574c26/go.mod h1:rDVsfweQ4kaxpAu+IZtZycFBUAfJX/72cEXpEoRyrVM=
 github.com/kr/pretty v0.3.1 h1:flRD4NNwYAUpkphVc1HcthR4KEIFJ65n8Mw5qdRn3LE=
 github.com/kr/pretty v0.3.1/go.mod h1:hoEshYVHaxMs3cyo3Yncou5ZscifuDolrwPKZanG3xk=
 github.com/kr/text v0.2.0 h1:5Nx0Ya0ZqY2ygV366QzturHI13Jq95ApcVaJBhpS+AY=
