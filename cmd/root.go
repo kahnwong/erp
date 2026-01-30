@@ -9,9 +9,10 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "erp",
-	Short: "For managing perishables and consumables",
-	Run:   func(cmd *cobra.Command, args []string) { core.Show() },
+	Use:          "erp",
+	Short:        "For managing perishables and consumables",
+	SilenceUsage: true,
+	RunE:         func(cmd *cobra.Command, args []string) error { return core.Show() },
 }
 
 func Execute() {

@@ -2,6 +2,7 @@ package core
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"sort"
 	"strconv"
@@ -21,11 +22,16 @@ var (
 	Magenta = color.New(color.FgHiMagenta).SprintFunc()
 )
 
-func readData() []Item {
+func readData() ([]Item, error) {
 	var erpData []Item
 
 	// read data
-	file := openFile(AppConfig.Path)
+	file, err := openFile(AppConfig.Path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
 	s := bufio.NewScanner(file)
 
 	// main
@@ -34,21 +40,35 @@ func readData() []Item {
 		line = strings.TrimRight(line, "\r\n")
 		data := strings.Split(line, " - ")
 
+		if len(data) < 4 {
+			continue // skip malformed lines
+		}
+
 		category := data[0]
 		item := data[1]
 		date := data[2]
-		quantity, _ := strconv.Atoi(data[3])
+		quantity, err := strconv.Atoi(data[3])
+		if err != nil {
+			return nil, fmt.Errorf("invalid quantity in line '%s': %w", line, err)
+		}
 
 		// append
 		erpData = append(erpData, Item{category, item, date, quantity})
 	}
 
-	return erpData
+	if err := s.Err(); err != nil {
+		return nil, fmt.Errorf("error reading file: %w", err)
+	}
+
+	return erpData, nil
 }
 
-func Show() {
+func Show() error {
 	// parse data
-	data := readData()
+	data, err := readData()
+	if err != nil {
+		return fmt.Errorf("failed to read data: %w", err)
+	}
 
 	// sort by expiration date
 	sort.Slice(data, func(i, j int) bool {
@@ -64,7 +84,10 @@ func Show() {
 		/// date: assign color
 		date := item.Date
 		today := time.Now()
-		dateObject, _ := time.Parse("2006-01-02", date)
+		dateObject, err := time.Parse("2006-01-02", date)
+		if err != nil {
+			return fmt.Errorf("invalid date format '%s': %w", date, err)
+		}
 		timeDiff := dateObject.Sub(today)
 
 		if timeDiff.Hours() < 14*24 { // 2 weeks
@@ -80,4 +103,5 @@ func Show() {
 		})
 	}
 	t.Render()
+	return nil
 }

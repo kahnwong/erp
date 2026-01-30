@@ -1,16 +1,15 @@
 package core
 
 import (
+	"fmt"
 	"os"
-
-	"github.com/rs/zerolog/log"
 )
 
-func openFile(filename string) *os.File {
+func openFile(filename string) (*os.File, error) {
 	file, err := os.Open(filename)
 	if err != nil {
-		log.Fatal().Msg("Error opening file")
+		return nil, fmt.Errorf("error opening file %s: %w", filename, err)
 	}
 
-	return file
+	return file, nil
 }
