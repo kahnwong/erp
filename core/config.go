@@ -2,6 +2,7 @@ package core
 
 import (
 	cliBase "github.com/kahnwong/cli-base"
+	"github.com/rs/zerolog/log"
 )
 
 type Config struct {
@@ -9,7 +10,15 @@ type Config struct {
 	Categories []string `json:"categories"`
 }
 
-var AppConfig = cliBase.ReadYaml[Config]("~/.config/erp/config.yaml") // init
+var AppConfig *Config
+
+func init() {
+	var err error
+	AppConfig, err = cliBase.ReadYaml[Config]("~/.config/erp/config.yaml")
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to read config")
+	}
+}
 
 // models
 type Item struct {

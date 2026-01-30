@@ -20,8 +20,8 @@ var addCmd = &cobra.Command{
 	Use:               "add",
 	Short:             "Add item",
 	ValidArgsFunction: CategoryGet,
-	Run: func(cmd *cobra.Command, args []string) {
-		core.Add(args)
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return core.Add(args)
 	},
 }
 

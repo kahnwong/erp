@@ -9,8 +9,8 @@ import (
 var editCmd = &cobra.Command{
 	Use:   "edit",
 	Short: "Edit data",
-	Run: func(cmd *cobra.Command, args []string) {
-		core.Edit()
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return core.Edit()
 	},
 }
 

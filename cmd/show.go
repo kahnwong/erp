@@ -9,8 +9,8 @@ import (
 var showCmd = &cobra.Command{
 	Use:   "show",
 	Short: "Show items",
-	Run: func(cmd *cobra.Command, args []string) {
-		core.Show()
+	RunE: func(cmd *cobra.Command, args []string) error {
+		return core.Show()
 	},
 }
 
