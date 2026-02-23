@@ -1,6 +1,10 @@
 package core
 
 import (
+	"errors"
+	"os"
+	"testing"
+
 	cliBase "github.com/kahnwong/cli-base"
 	"github.com/rs/zerolog/log"
 )
@@ -16,6 +20,9 @@ func init() {
 	var err error
 	AppConfig, err = cliBase.ReadYaml[Config]("~/.config/erp/config.yaml")
 	if err != nil {
+		if errors.Is(err, os.ErrNotExist) && testing.Testing() {
+			return
+		}
 		log.Fatal().Err(err).Msg("failed to read config")
 	}
 }
